@@ -21,11 +21,9 @@ exports.crearFeedback = async (req, res) => {
       entrenadorId
     );
     if (!solicitud || solicitud.estado !== "aceptada") {
-      return res
-        .status(403)
-        .json({
-          msg: "solo puedes valorar a entrenadores cuya solicitud ha sido aceptada.",
-        });
+      return res.status(403).json({
+        msg: "solo puedes valorar a entrenadores cuya solicitud ha sido aceptada.",
+      });
     }
 
     //verifica que no haya dejado un feedback antes
@@ -57,5 +55,18 @@ exports.crearFeedback = async (req, res) => {
     res.status(201).json(nuevoFeedback);
   } catch (error) {
     res.status(500).send("error del Servidor");
+  }
+};
+
+//obtiene las valoraciones de entrenadores
+exports.getMisFeedbacks = async (req, res) => {
+  try {
+    if (req.usuario.rol !== "entrenador") {
+      return res.status(403).json({ msg: "Accion no permitida." });
+    }
+    const feedbacks = await Feedback.findByEntrenador(req.usuario.id);
+    res.json(feedbacks);
+  } catch (error) {
+    res.status(500).send("Error del Servidor");
   }
 };

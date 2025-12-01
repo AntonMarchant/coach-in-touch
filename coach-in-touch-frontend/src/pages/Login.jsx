@@ -66,7 +66,7 @@ function Login() {
             required
           />
         </div>
-        <button type="submit">iniciar sesión</button>
+        <button type="submit">Iniciar sesión</button>
       </form>
     </div>
   );

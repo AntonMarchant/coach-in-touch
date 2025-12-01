@@ -49,7 +49,7 @@ function Register() {
 
   return (
     <div>
-      <h1>crea tu nueva cuenta</h1>
+      <h1>Crea tu nueva cuenta</h1>
       <form onSubmit={onSubmit}>
         <div>
           <input
@@ -85,7 +85,7 @@ function Register() {
 
         {/*seleccionar rol*/}
         <div>
-          <label>quiero registrarme como:</label>
+          <label>Quiero registrarme como:</label>
           <select name="rol" value={formData.rol} onChange={onChange}>
             <option value="deportista">deportista</option>
             <option value="entrenador">entrenador</option>
@@ -94,7 +94,7 @@ function Register() {
 
         {/*seleccionar deporte*/}
         <div>
-          <label>mi deporte principal:</label>
+          <label>Mi deporte principal:</label>
           <select
             name="deporte_id"
             value={formData.deporte_id}
@@ -108,7 +108,7 @@ function Register() {
           </select>
         </div>
 
-        <button type="submit">registrar</button>
+        <button type="submit">Registrar</button>
       </form>
     </div>
   );

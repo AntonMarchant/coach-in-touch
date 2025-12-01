@@ -56,7 +56,7 @@ function Profile() {
 
   return (
     <div>
-      <h1>edita tu perfil de {perfil.rol}</h1>
+      <h1>Edita tu perfil de {perfil.rol}</h1>
       <form onSubmit={onSubmit}>
         <div>
           <label>Nombre:</label>
@@ -68,7 +68,7 @@ function Profile() {
           />
         </div>
         <div>
-          <label>biografia:</label>
+          <label>Biografia:</label>
           <textarea
             name="biografia"
             value={perfil.biografia || ""}
@@ -81,7 +81,7 @@ function Profile() {
         {/*mostrar solo si rol=deportista*/}
         {perfil.rol === "deportista" && (
           <div>
-            <label>tus objetivos:</label>
+            <label>Tus objetivos:</label>
             <textarea
               name="objetivos"
               value={perfil.objetivos || ""}
@@ -94,7 +94,7 @@ function Profile() {
         {perfil.rol === "entrenador" && (
           <>
             <div>
-              <label>tu experiencia:</label>
+              <label>Tu experiencia:</label>
               <textarea
                 name="experiencia"
                 value={perfil.experiencia || ""}
@@ -102,7 +102,7 @@ function Profile() {
               />
             </div>
             <div>
-              <label>tus certificaciones:</label>
+              <label>Tus certificaciones:</label>
               <textarea
                 name="certificaciones"
                 value={perfil.certificaciones || ""}
@@ -112,7 +112,7 @@ function Profile() {
           </>
         )}
 
-        <button type="submit">actualizar perfil</button>
+        <button type="submit">Actualizar perfil</button>
       </form>
     </div>
   );

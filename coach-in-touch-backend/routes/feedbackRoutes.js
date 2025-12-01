@@ -11,4 +11,11 @@ router.post(
   authMiddleware, //asegura que este logeado
   feedbackController.crearFeedback
 );
+
+router.get(
+  "/mis-feedbacks",
+  authMiddleware,
+  feedbackController.getMisFeedbacks
+);
+
 module.exports = router;

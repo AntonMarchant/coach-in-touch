@@ -34,6 +34,24 @@ class Feedback {
       throw error;
     }
   }
+
+  //busca el feedback recibido por el entrenador
+  static async findByEntrenador(entrenadorId) {
+    const query = `
+      SELECT f.*, p.nombre as deportista_nombre
+      FROM feedback f
+      JOIN perfiles p ON f.deportista_id = p.usuario_id
+      WHERE f.entrenador_id = $1
+      ORDER BY f.fecha_feedback DESC
+    `;
+    try {
+      const { rows } = await db.query(query, [entrenadorId]);
+      return rows;
+    } catch (error) {
+      console.error("Error al buscar feedback de entrenador:", error);
+      throw error;
+    }
+  }
 }
 
 module.exports = Feedback;

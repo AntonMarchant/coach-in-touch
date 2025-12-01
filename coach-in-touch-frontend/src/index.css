@@ -30,7 +30,8 @@ form {
 /*estilo para campos de texto*/
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+textarea {
   padding: 10px;
   font-size: 1rem;
   border-radius: 5px;
@@ -38,6 +39,13 @@ input[type="password"] {
   background-color: #333;
   color: white;
   width: 300px;
+  font-family: inherit; /*para que use la misma fuente siempre*/
+}
+
+/*altura adicional para las area de texto*/
+textarea {
+  min-height: 80px;
+  resize: vertical;
 }
 
 /*estilo para boton */
