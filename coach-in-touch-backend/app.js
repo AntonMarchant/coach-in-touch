@@ -28,6 +28,7 @@ app.use("/api/admin", require("./routes/adminRoutes"));
 app.use("/api/feedback", require("./routes/feedbackRoutes"));
 app.use("/api/chat", require("./routes/chatRoutes"));
 app.use("/api/progreso", require("./routes/progresoRoutes"));
+app.use("/api/foro", require("./routes/postRoutes"));
 
 //congif del servidor a real time con socket.io
 

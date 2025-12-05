@@ -1,37 +1,38 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import FeedbackForm from "../components/FeedbackForm"; //importa formulario
+import FeedbackForm from "../components/FeedbackForm";
 
 function SolicitudesEnviadas() {
   const [solicitudes, setSolicitudes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchSolicitudes = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await axios.get(
-          "http://localhost:5000/api/solicitudes/enviadas",
-          {
-            headers: { "x-auth-token": token },
-          }
-        );
-        setSolicitudes(res.data);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error al cargar solicitudes enviadas:", error);
-        setLoading(false);
-      }
-    };
     fetchSolicitudes();
   }, []);
+
+  const fetchSolicitudes = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.get(
+        "http://localhost:5000/api/solicitudes/enviadas",
+        {
+          headers: { "x-auth-token": token },
+        }
+      );
+      setSolicitudes(res.data);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error al cargar solicitudes enviadas:", error);
+      setLoading(false);
+    }
+  };
 
   if (loading) {
     return <h1>Cargando tus solicitudes</h1>;
   }
 
   return (
-    <div>
+    <div style={{ padding: "20px" }}>
       <h1>Mis Solicitudes Enviadas</h1>
       <div
         className="solicitudes-lista"
@@ -45,16 +46,54 @@ function SolicitudesEnviadas() {
                 border: "1px solid #555",
                 padding: "1rem",
                 borderRadius: "8px",
+                backgroundColor: "#2a2a2a",
               }}
             >
               <h3>Solicitud a: {solicitud.entrenador_nombre}</h3>
               <p>
-                <strong>Estado:</strong> {solicitud.estado}
+                <strong>Mensaje:</strong> {solicitud.mensaje || "Sin mensaje"}
+              </p>
+              <p>
+                <strong>Estado: </strong>
+                <span
+                  style={{
+                    color:
+                      solicitud.estado === "aceptada"
+                        ? "#4ade80"
+                        : solicitud.estado === "rechazada"
+                        ? "#f87171"
+                        : "#fbbf24",
+                  }}
+                >
+                  {solicitud.estado.toUpperCase()}
+                </span>
               </p>
 
-              {/*logica del Feedback HU-003*/}
+              {/*feedback (HU-003)*/}
               {solicitud.estado === "aceptada" && (
-                <FeedbackForm entrenadorId={solicitud.entrenador_id} />
+                <div
+                  style={{
+                    marginTop: "15px",
+                    borderTop: "1px solid #444",
+                    paddingTop: "10px",
+                  }}
+                >
+                  {/*consulta si ya tiene feedback*/}
+                  {solicitud.tiene_feedback ? (
+                    <div
+                      style={{
+                        color: "#2a9d8f",
+                        fontStyle: "italic",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      Ya has enviado tu valoración a este entrenador.
+                    </div>
+                  ) : (
+                    //si no tiene feedback muestra el formulario
+                    <FeedbackForm entrenadorId={solicitud.entrenador_id} />
+                  )}
+                </div>
               )}
             </div>
           ))

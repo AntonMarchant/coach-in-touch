@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   //estado guarda correo/contraseña
@@ -48,7 +48,7 @@ function Login() {
         <div>
           <input
             type="email"
-            placeholder="correo electrnico"
+            placeholder="correo electronico"
             name="correo"
             value={formData.correo}
             onChange={onChange}
@@ -68,6 +68,15 @@ function Login() {
         </div>
         <button type="submit">Iniciar sesión</button>
       </form>
+
+      <div style={{ marginTop: "20px", textAlign: "center" }}>
+        <p>¿No tienes cuenta?</p>
+        <Link to="/register">
+          <button style={{ backgroundColor: "#555", marginTop: "5px" }}>
+            Regístrate aquí
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }

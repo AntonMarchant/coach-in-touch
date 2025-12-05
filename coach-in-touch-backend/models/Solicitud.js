@@ -85,7 +85,17 @@ class Solicitud {
   //busca todas las solicitudes enviadas por un deportista - sprint 4
   static async findEnviadasPorDeportista(deportistaId) {
     const query = `
-      SELECT s.id, s.entrenador_id, p.nombre AS entrenador_nombre, s.estado, s.mensaje
+      SELECT 
+        s.id, 
+        s.entrenador_id, 
+        p.nombre AS entrenador_nombre, 
+        s.estado, 
+        s.mensaje,
+        s.fecha_solicitud,
+        -- Subconsulta para saber si ya existe feedback
+        (SELECT COUNT(*) FROM feedback f 
+         WHERE f.deportista_id = s.deportista_id 
+         AND f.entrenador_id = s.entrenador_id) > 0 AS tiene_feedback
       FROM solicitudes s
       LEFT JOIN perfiles p ON s.entrenador_id = p.usuario_id
       WHERE s.deportista_id = $1

@@ -45,7 +45,7 @@ function AdminPanel() {
     }
   };
 
-  if (loading) return <h1>Cargando...</h1>;
+  if (loading) return <h1>Cargando</h1>;
 
   return (
     <div>
@@ -64,11 +64,29 @@ function AdminPanel() {
           >
             <h3>{p.nombre}</h3>
             <p>{p.correo}</p>
+
+            <div style={{ marginTop: "10px", color: "#ddd" }}>
+              <p>
+                <strong>Deporte:</strong> {p.deporte || "No especificado"}
+              </p>
+              <p>
+                <strong>Biografía:</strong> {p.biografia || "Sin información"}
+              </p>
+              <p>
+                <strong>Experiencia:</strong>{" "}
+                {p.experiencia || "Sin información"}
+              </p>
+              <p>
+                <strong>Certificaciones:</strong>{" "}
+                {p.certificaciones || "Sin información"}
+              </p>
+            </div>
+
             <button
               onClick={() => handleValidar(p.id)}
               style={{ backgroundColor: "#2a9d8f" }}
             >
-              Validar ✅
+              Validar entrenador ✅
             </button>
           </div>
         ))

@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify"; //incluye toastify (para notis)
 import "react-toastify/dist/ReactToastify.css"; //css de toastify
-import io from "socket.io-client"; //importa el socket
+import io from "socket.io-client"; //importa socket.io
+import OpinionesEntrenador from "./pages/OpinionesEntrenador";
+import { Navigate } from "react-router-dom";
 
 //importa paginas
 import Register from "./pages/Register";
@@ -17,6 +19,7 @@ import Chat from "./pages/Chat";
 import Progreso from "./pages/Progreso";
 import ProgresoDeportista from "./pages/ProgresoDeportista";
 import MisValoraciones from "./pages/MisValoraciones";
+import Foro from "./pages/Foro";
 
 //importa el guardia
 import RutaProtegida from "./components/RutaProtegida";
@@ -53,16 +56,22 @@ function App() {
       <ToastContainer />
 
       <Routes>
+        <Route path="/" element={<Navigate to="/login" replace />} />
+
         {/*rutas publicas*/}
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/entrenadores" element={<Entrenadores />} />
 
         {/*rutas privadas*/}
         <Route element={<RutaProtegida />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/perfil" element={<Profile />} />
           <Route path="/mis-solicitudes" element={<MisSolicitudes />} />
+          <Route path="/entrenadores" element={<Entrenadores />} />
+          <Route
+            path="/opiniones/:entrenadorId"
+            element={<OpinionesEntrenador />}
+          />
           <Route
             path="/mis-solicitudes-enviadas"
             element={<SolicitudesEnviadas />}
@@ -75,6 +84,7 @@ function App() {
             element={<ProgresoDeportista />}
           />
           <Route path="/mis-valoraciones" element={<MisValoraciones />} />
+          <Route path="/foro" element={<Foro />} />
         </Route>
       </Routes>
     </Router>

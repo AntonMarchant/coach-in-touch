@@ -63,12 +63,13 @@ class Perfil {
   static async buscar(filtros = {}) {
     let query = `
       SELECT 
-        u.id,
-        p.nombre,
-        p.foto_url,
-        p.biografia,
-        p.experiencia,
-        p.certificaciones,
+        u.id, 
+        p.nombre, 
+        p.foto_url, 
+        p.biografia, 
+        p.experiencia, 
+        p.certificaciones, 
+        p.validado,
         d.nombre AS deporte 
       FROM perfiles p
       INNER JOIN usuarios u ON p.usuario_id = u.id
@@ -78,17 +79,23 @@ class Perfil {
 
     const values = [];
 
-    if (filtros.deporte) {
-      values.push(filtros.deporte);
-      //filtra por nombre del deporte en la tabla deportes
+    //filtro por deporte (exacto o parcial)
+    if (filtros.deporte && filtros.deporte !== "") {
+      values.push(`%${filtros.deporte}%`);
       query += ` AND d.nombre ILIKE $${values.length}`;
+    }
+
+    //filtro por nombre (parcial)
+    if (filtros.nombre && filtros.nombre !== "") {
+      values.push(`%${filtros.nombre}%`); //los % permiten buscar texto parcial
+      query += ` AND p.nombre ILIKE $${values.length}`;
     }
 
     try {
       const { rows } = await db.query(query, values);
       return rows;
     } catch (error) {
-      console.error("error en la busqueda de perfiles:", error);
+      console.error("Error en la búsqueda de perfiles:", error);
       throw error;
     }
   }

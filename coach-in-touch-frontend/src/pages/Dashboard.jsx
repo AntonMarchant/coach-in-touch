@@ -42,15 +42,26 @@ function Dashboard() {
       </p>
 
       <div style={{ marginBottom: "20px" }}>
-        <Link to="/perfil">
-          <button>Ir a mi Perfil</button>
-        </Link>
-
-        {/*boton de chat para entrenador/deportista y no admin*/}
         {perfil.rol !== "administrador" && (
-          <Link to="/chat" style={{ marginLeft: "10px" }}>
-            <button style={{ backgroundColor: "#4a4ae2" }}>Mis Mensajes</button>
+          <Link to="/perfil">
+            <button>Ir a mi Perfil</button>
           </Link>
+        )}
+
+        {perfil.rol !== "administrador" && (
+          <>
+            <Link to="/chat" style={{ marginLeft: "10px" }}>
+              <button style={{ backgroundColor: "#4a4ae2" }}>
+                Mis Mensajes
+              </button>
+            </Link>
+
+            <Link to="/foro" style={{ marginLeft: "10px" }}>
+              <button style={{ backgroundColor: "#e76f51" }}>
+                Foro de Eventos
+              </button>
+            </Link>
+          </>
         )}
       </div>
 

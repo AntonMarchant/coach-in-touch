@@ -70,3 +70,14 @@ exports.getMisFeedbacks = async (req, res) => {
     res.status(500).send("Error del Servidor");
   }
 };
+
+//obtiene feedbacks de un entrenador específico
+exports.getFeedbackPorEntrenador = async (req, res) => {
+  try {
+    const { entrenadorId } = req.params;
+    const feedbacks = await Feedback.findByEntrenador(entrenadorId);
+    res.json(feedbacks);
+  } catch (error) {
+    res.status(500).send("Error del Servidor");
+  }
+};

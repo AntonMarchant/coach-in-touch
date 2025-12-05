@@ -44,7 +44,7 @@ textarea {
 
 /*altura adicional para las area de texto*/
 textarea {
-  min-height: 80px;
+  min-height: 45px;
   resize: vertical;
 }
 
